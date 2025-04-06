@@ -1,66 +1,36 @@
-## Foundry
+# Foundry-uups-Demo
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+An uups contracts demo for foundry
 
-Foundry consists of:
+## Install Dependencies
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```bash
+forge install foundry-rs/forge-std
+forge install OpenZeppelin/openzeppelin-foundry-upgrades
+forge install OpenZeppelin/openzeppelin-contracts-upgradeable
 ```
 
-### Test
+## Set env
 
-```shell
-$ forge test
+```bash
+export PRIVATE_KEY=""
+export RPC_URL=""
+export ETHERSCAN_API_KEY=""
+export VERIFIER_URL="https://api-sepolia.etherscan.io/api"
 ```
 
-### Format
+## Deploy proxy & V1 contracts
 
-```shell
-$ forge fmt
+```bash
+forge script script/Deploy-MyContractV1.s.sol:DeployMyContractV1 \
+--chain sepolia  --verifier-url $VERIFIER_URL \
+--rpc-url $RPC_URL  --private-key $PRIVATE_KEY --broadcast --verify --ffi
 ```
 
-### Gas Snapshots
+## V2 contracts & upgrade proxy implementation to V2
 
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+```bash
+forge script script/Upgradge-to-MyContractV2.s.sol:UpgradgeToMyContractV2 \
+--chain sepolia  --verifier-url $VERIFIER_URL \
+--rpc-url $RPC_URL  --private-key $PRIVATE_KEY --broadcast --verify --ffi
 ```

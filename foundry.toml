@@ -2,5 +2,8 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+ast = true
+build_info = true       # 启用构建信息
+extra_output = ["storageLayout"]  # 包含额外的元数据
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
